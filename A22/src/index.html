@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task A22</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100dvh;
+        }
+
+        main {
+            width: 23%;
+            height: 40%;
+            border: 1px solid black;
+            padding: 32px 8px;
+            display: flex;
+            justify-content: space-around;
+            align-items: end;
+        }
+
+        .bar {
+            height: 0;
+            width: 60px;
+            transition: height 0.5s ease;
+        }
+
+        .b1 {
+            background-color: red;
+        }
+
+        .b2 {
+            background-color: green;
+            transition-delay: 0.5s;
+        }
+
+        .b3 {
+            background-color: blue;
+            transition-delay: 1s;
+        }
+
+        main:hover .b1 {
+            height: 85%;
+            transition-delay: 0s;
+        }
+
+        main:hover .b2 {
+            height: 25%;
+            transition-delay: 0.5s;
+        }
+
+        main:hover .b3 {
+            height: 60%;
+            transition-delay: 1s;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="bar b1"></div>
+        <div class="bar b2"></div>
+        <div class="bar b3"></div>
+    </main>
+</body>
+
+</html>
