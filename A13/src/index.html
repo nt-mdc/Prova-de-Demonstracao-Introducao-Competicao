@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A13</title>
+
+    <style>
+        
+    </style>
+</head>
+<body>
+    <main class="container">
+        <div class="top"></div>
+        <div class="drop"></div>
+        <div class="bottom"></div>
+    </main>
+
+    <svg width="0" heigth="0">
+        <filter id="goo">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur" />
+
+            <feColorMatrix in="blur" mode="matrix"  values="
+                1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 18 -7" result="goo"/>
+            
+            <feComposite in="SourceGraphic"  in2="goo" operator="atop" />
+        </filter>
+    </svg>
+</body>
+</html>
