@@ -1,14 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A13</title>
 
     <style>
-        
+        body {
+            background: #111;
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            filter: url(#goo);
+        }
+
+        .drop,
+        .top,
+        .bottom {
+            position: absolute;
+            background-color: white;
+        }
+
+        .top,
+        .bottom {
+            width: 100%;
+            left: 0;
+            height: 20px;
+        }
+
+        .top {
+            top: 0;
+        }
+
+        .bottom {
+            bottom: 0;
+        }
+
+        .drop {
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: fall 1.5s infinite;
+        }
+
+        @keyframes fall {
+
+            0% {
+                top: 0;
+            }
+
+            100% {
+                top: calc(100% - 20px);
+            }
+
+        }
     </style>
 </head>
+
 <body>
     <main class="container">
         <div class="top"></div>
@@ -20,16 +81,82 @@
         <filter id="goo">
             <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur" />
 
-            <feColorMatrix in="blur" mode="matrix"  values="
+            <feColorMatrix in="blur" mode="matrix" values="
                 1 0 0 0 0
                 0 1 0 0 0
                 0 0 1 0 0
-                0 0 0 18 -7" result="goo"/>
-            
-            <feComposite in="SourceGraphic"  in2="goo" operator="atop" />
+                0 0 0 18 -7" result="goo" />
+
+            <feComposite in="SourceGraphic" in2="goo" operator="atop" />
         </filter>
     </svg>
 
-    <!--Git test-->
+    <!--
+    ========================================================================================
+    Matriz de Transformação de Cores no <feColorMatrix>
+    ========================================================================================
+
+    A matriz de transformação de cores no elemento <feColorMatrix> permite uma
+    manipulação detalhada das cores e da transparência de um gráfico SVG. A matriz
+    é representada da seguinte forma:
+
+    [ R' ]   [ a  b  c  d  e ]   [ R ]
+    [ G' ]   [ f  g  h  i  j ]   [ G ]
+    [ B' ] = [ k  l  m  n  o ] * [ B ]
+    [ A' ]   [ p  q  r  s  t ]   [ A ]
+    [ 1  ]   [ 0  0  0  0  1 ]   [ 1 ]
+
+    Aqui, R, G, B e A são os valores originais dos canais de cor (vermelho, verde,
+    azul e alfa), e R', G', B' e A' são os valores transformados.
+
+    ---
+
+    **Elementos da Matriz:**
+
+    - **Primeira Linha (Canal Vermelho):**
+      - a: Multiplica R.
+      - b: G → R, c: B → R, d: A → R, e: Offset em R.
+
+    - **Segunda Linha (Canal Verde):**
+      - f: R → G, g: Multiplica G, h: B → G, i: A → G, j: Offset em G.
+
+    - **Terceira Linha (Canal Azul):**
+      - k: R → B, l: G → B, m: Multiplica B, n: A → B, o: Offset em B.
+
+    - **Quarta Linha (Canal Alfa):**
+      - p: R → A, q: G → A, r: B → A, s: Multiplica A, t: Offset em A.
+
+    ---
+
+    **Exemplos de Transformações (Grid 3x2):**
+
+    ┌────────────────────────────┬────────────────────────────┬────────────────────────────┐
+    │ 1. Matriz Identidade       │ 2. Converter p/ Cinza      │ 3. Inverter Cores          │
+    │                            │                            │                            │
+    │ <feColorMatrix             │ <feColorMatrix             │ <feColorMatrix             │
+    │   type="matrix" values="   │   type="matrix" values="   │   type="matrix" values="   │
+    │   1 0 0 0 0                │   0.33 0.33 0.33 0 0       │  -1 0 0 0 1                │
+    │   0 1 0 0 0                │   0.33 0.33 0.33 0 0       │   0 -1 0 0 1               │
+    │   0 0 1 0 0                │   0.33 0.33 0.33 0 0       │   0 0 -1 0 1               │
+    │   0 0 0 1 0" />            │   0    0    0    1 0" />   │   0 0 0 1 0" />            │
+    │                            │                            │                            │
+    └────────────────────────────┴────────────────────────────┴────────────────────────────┘
+
+    ┌────────────────────────────┬────────────────────────────┬────────────────────────────┐
+    │ 4. Aumentar Saturação      │ 5. Ajustar Transparência   │ 6. Aplicar Tint Rosa       │
+    │                            │                            │                            │
+    │ <feColorMatrix             │ <feColorMatrix             │ <feColorMatrix             │
+    │   type="matrix" values="   │   type="matrix" values="   │   type="matrix" values="   │
+    │   1.5 0 0 0 0              │   1 0 0 0 0                │  0.5 0 0 0 0.5             │
+    │   0 1.5 0 0 0              │   0 1 0 0 0                │  0 0.5 0 0 0.5             │
+    │   0 0 1.5 0 0              │   0 0 1 0 0                │  0 0 0.5 0 0.5             │
+    │   0 0 0 1 0" />            │   0 0 0 0.5 0" />          │  0 0 0 1 0" />             │
+    │                            │                            │                            │
+    └────────────────────────────┴────────────────────────────┴────────────────────────────┘
+
+    ========================================================================================
+    -->
+
 </body>
+
 </html>
