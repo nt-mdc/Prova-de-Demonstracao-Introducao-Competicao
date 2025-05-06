@@ -1,0 +1,63 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#compare-container {
+    position: relative;
+    width: 100%;
+    max-width: 90dvw;
+    height: 100dvh;
+    --split: 50%;
+    cursor: ew-resize;
+    margin: 24px auto;
+}
+
+#compare-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    user-select: none;
+    pointer-events: none;
+}
+
+#before-img {
+    z-index: 1;
+    clip-path: polygon(0 0, var(--split) 0, var(--split) 100%, 0 100%);
+}
+
+#after-img {
+    z-index: 0;
+}
+
+#before-img::before{
+    content: "Antes";
+    position: absolute;
+    top: 0;
+    left: var(--split);
+    transform: translateX(-50%);
+    width: 32px;
+    height: 100%;
+    background: white;
+    background-size: contain;
+    z-index: 2;
+    pointer-events: none;
+}
+
+#compare-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: var(--split);
+    transform: translateX(-50%);
+    width: 32px;
+    height: 100%;
+    background: url('assets/svg/splitter.svg') center center no-repeat;
+    background-size: contain;
+    z-index: 2;
+    pointer-events: none;
+}
