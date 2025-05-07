@@ -24,13 +24,22 @@ function newCounter(){
     btnIncrease.classList.add('button', 'btn-danger');
     btnIncrease.innerHTML = "Increase";
 
+    let btnRemove = document.createElement("button");
+    btnRemove.classList.add('remove');
+    btnRemove.innerHTML = "✕";
+
     btnDiv.appendChild(btnDecrease);
     btnDiv.appendChild(btnIncrease);
 
     counter.appendChild(counterText);
     counter.appendChild(btnDiv);
+    counter.appendChild(btnRemove);
 
     countersContainer.appendChild(counter);
+
+    btnRemove.addEventListener("click", () => {
+        counter.remove()
+    });
 
     btnDecrease.addEventListener("click", () => {
         let amount = +counterText.textContent;

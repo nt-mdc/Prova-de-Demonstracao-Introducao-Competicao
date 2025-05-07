@@ -30,12 +30,12 @@ main {
     border-color: olive;
 }
 
-.btn-primary{
+.btn-primary {
     background-color: cadetblue;
     border-color: cadetblue;
 }
 
-.btn-danger{
+.btn-danger {
     background-color: rgb(255, 80, 80);
     border-color: coral;
 }
@@ -43,6 +43,15 @@ main {
 
 .button:active {
     transform: scale(1.05);
+}
+
+.remove {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }
 
 #counter-container {
@@ -54,30 +63,31 @@ main {
 }
 
 .counter {
+    position: relative;
     border: 1px solid black;
     display: grid;
     gap: 8px;
     padding: 8px;
     border-radius: 12px;
-    aspect-ratio: 1 / 0.8 ;
+    aspect-ratio: 1 / 0.8;
     grid-template-columns: 1;
     grid-template-rows: repeat(6, 1fr);
-    grid-template-areas: 
-    "."
-    "counter"
-    "counter"
-    "counter"
-    "."
-    "btns";
+    grid-template-areas:
+        "."
+        "counter"
+        "counter"
+        "counter"
+        "."
+        "btns";
 }
 
-.counter-amount{
+.counter-amount {
     grid-area: counter;
     font-size: 500%;
     text-align: center;
 }
 
-.btn-container{
+.btn-container {
     grid-area: btns;
     width: 100%;
     display: flex;
