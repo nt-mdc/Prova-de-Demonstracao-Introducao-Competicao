@@ -1,52 +1,58 @@
-<?php
+<!DOCTYPE html>
+<html>
 
-function zipFolder($sourceFolder, $zipFilePath) {
+<head>
+    <meta charset="UTF-8">
+    <title>Compactar Pasta</title>
+</head>
 
-    if (!extension_loaded('zip') || !file_exists($sourceFolder)){
-        return false;
-    }
+<body>
 
-    $zip = new ZipArchive();
-
-    if(!$zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE)){
-        return false;
-    }
-
-    $sourceFolder = realpath($sourceFolder);
-
-    $files = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($sourceFolder),
-        RecursiveIteratorIterator::LEAVES_ONLY
-    );
-
-    foreach ($files as $name => $file) {
-        if (!$file->isDir()) {
-            $filePath = $file->getRealPath();
-            $relativePath = substr($filePath, strlen($sourceFolder) + 1);
-            $zip->addFile($filePath, $relativePath);
+    <?php
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['folder'])) {
+        if (isset($_FILES['folder']['name'][0]) && isset($_FILES['folder']['full_path'][0])) {
+            $folderName = explode('/', $_FILES['folder']['full_path'][0])[0];
+        } else {
+            echo "<p>O navegador ou servidor não está fornecendo o caminho completo (full_path).</p>";
         }
+
+        $zip = new ZipArchive();
+        $zipFileName = $folderName . '.zip';
+
+        if ($zip->open($zipFileName, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== TRUE) {
+            die("Não foi possível criar o arquivo ZIP.");
+        }
+
+        $arquivos = $_FILES['folder'];
+
+        for ($i = 0; $i < count($arquivos['name']); $i++) {
+            $tmpName = $arquivos['tmp_name'][$i];
+            $fullPath = $arquivos['full_path'][$i];
+
+            if (is_uploaded_file($tmpName)) {
+                $zip->addFile($tmpName, $fullPath);
+            }
+        }
+
+        $zip->close();
+
+        header("Content-Disposition: attachment; filename=\"" . basename($zipFileName) . "\"");
+        header("Content-Type: application/octet-stream");
+        header("Content-Length: " . filesize($zipFileName));
+        header("Connection: close");
+
+        unlink($zipFileName);
+
+        echo "<p>Arquivo ZIP criado com sucesso: <a href='$zipFileName' download>Baixar ZIP</a></p>";
     }
+    ?>
 
-    $zip->close();
+    <form method="post" enctype="multipart/form-data">
+        <h1>Folder Zip</h1>
+        <input type="file" name="folder[]" webkitdirectory directory required><br><br>
+        <input type="submit" value="Compactar">
+    </form>
 
-    return true;
-    
-}
+</body>
 
-if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $pasta = $_POST['pasta'];
-    $arqZip = $pasta.'.zip';
-
-    if(zipFolder($pasta, $arqZip)) {
-        echo "Pasta criada com sucesso! <a href='$arqZip'>Baixar Zip</a>";
-    } else {
-        echo "Falha ao compactar a pasta";
-    }
-}
-?>
-
-<form method="post">
-    <label>Nome da Pasta para Compactar:</label><br>
-    <input type="text" name="pasta" value="minha_pasta" required><br><br>
-    <input type="submit" value="Compactar">
-</form>
+</html>
