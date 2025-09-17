@@ -50,7 +50,7 @@ Ele é bem segmentado, evitando que diferentes partes do código se misturem.
 
 Vídeos recomendados:
 1. [Introdução ao Angular](https://youtu.be/Yf0rC7dERjg?si=Mzuexu6hvLwXFACu)  
-2. [Angular (O Vídeo que Você Precisava para Começar no Framework) // Dicionário do Programador](https://youtu.be/VumdXFJ4n7o?si=1pt5akFjwHcRJK70)
+2. [Angular](https://youtu.be/VumdXFJ4n7o?si=1pt5akFjwHcRJK70)
 
 ---
 
@@ -59,5 +59,5 @@ Vídeos recomendados:
 Para PHP, usamos o **Laravel**, que simplifica o que você fez em PHP puro e adiciona muitas funcionalidades.  
 
 Playlist recomendada:
-- [Curso de Laravel (playlist completa)](https://youtube.com/playlist?list=PLnDvRpP8BnewYKI1n2chQrrR4EYiJKbUG&si=2152z55LLn7uQJJV)  
+- [Curso de Laravel](https://youtube.com/playlist?list=PLnDvRpP8BnewYKI1n2chQrrR4EYiJKbUG&si=2152z55LLn7uQJJV)  
 *(vídeos curtos, até 17 minutos cada, passo a passo)*
